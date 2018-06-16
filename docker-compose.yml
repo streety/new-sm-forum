@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+    phpbb:
+        build: ./phpbb/
+        #image: php:7.0-apache
+        ports:
+        - "80:80"
+        volumes:
+            - "./phpbb:/var/www/html"
+        links:
+            - database
+        
+    database:
+        build: ./database/        
+        #image: mysql:5
+        volumes:
+            - database_data:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: science
+            MYSQL_USER: demo
+            MYSQL_PASSWORD: demo
+            MYSQL_DATABASE: demo
+
+
+
+
+        
+volumes:
+    database_data:
+        driver: local
